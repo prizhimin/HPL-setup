@@ -119,7 +119,7 @@ echo "Используется 16 процессов (8 ядер + HT)"
 cd ~/hpl/bin/linux
 
 # Запуск теста с 16 процессами
-$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 16 ./xhpl > HPL.out
+$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 16 --bind-to core ./xhpl > HPL.out
 
 echo "Тест завершен!"
 echo "Результаты сохранены в HPL.out"
