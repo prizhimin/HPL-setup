@@ -19,10 +19,6 @@ CFLAGS="-Ofast -march=znver4 -mtune=znver4" ./configure --prefix=$HOME/opt/OpenM
 make -j $(nproc)
 make install
 
-export MPI_HOME=$HOME/opt/OpenMPI
-export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib
-
 cd ~
 wget https://netlib.sandia.gov/benchmark/hpl/hpl-2.3.tar.gz
 gunzip hpl-2.3.tar.gz
@@ -72,7 +68,7 @@ EOF
 # Компиляция HPL
 make arch=zen4
 
-# Создание HPL.dat конфигурации для Ryzen 5 7500F с 16GB памяти
+# Создание HPL.dat конфигурации для Ryzen 5 7500F с 32GB памяти
 cat > ~/hpl/bin/zen4/HPL.dat << 'EOF'
 HPLinpack benchmark input file
 Innovative Computing Laboratory, University of Tennessee
@@ -112,7 +108,7 @@ echo "Бинарный файл: ~/hpl/bin/zen4/xhpl"
 echo "Конфигурационный файл: ~/hpl/bin/zen4/HPL.dat"
 
 # Запуск теста производительности
-echo "Запуск HPL теста на Ryzen 5 7500F с 16GB памяти..."
+echo "Запуск HPL теста на Ryzen 5 7500F с 32GB памяти..."
 echo "Используется 12 процессов (по количеству ядер)"
 cd ~/hpl/bin/zen4
 
