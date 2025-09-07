@@ -22,7 +22,7 @@ make install
 
 export MPI_HOME=$HOME/opt/OpenMPI
 export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
 
 cd ~
 wget https://netlib.sandia.gov/benchmark/hpl/hpl-2.3.tar.gz
@@ -117,11 +117,6 @@ echo "Конфигурационный файл: ~/hpl/bin/tigerlake/HPL.dat"
 echo "Запуск HPL теста на i7-1165G7 с 8GB памяти..."
 echo "Используется 8 процессов (4 ядра + HT)"
 cd ~/hpl/bin/tigerlake
-
-# Экспорт переменных для MPI
-export MPI_HOME=$HOME/opt/OpenMPI
-export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
 
 # Запуск теста с 8 процессами
 echo "Внимание: убедитесь в хорошем охлаждении процессора!"
