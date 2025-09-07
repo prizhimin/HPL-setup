@@ -22,7 +22,7 @@ make install
 
 export MPI_HOME=$HOME/opt/OpenMPI
 export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
 
 cd ~
 wget https://netlib.sandia.gov/benchmark/hpl/hpl-2.3.tar.gz
@@ -119,14 +119,8 @@ echo "Запуск HPL теста на i7-6800K (6 ядер / 12 потоков)
 echo "Используется 12 процессов (все логические ядра)"
 cd ~/hpl/bin/linux
 
-# Экспорт переменных для MPI
-export MPI_HOME=$HOME/opt/OpenMPI
-export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
-
 # Запуск теста с 12 процессами (все логические ядра)
-# Ключ --use-hwthread-cpus может мешать, лучше явно указать -np 12
-$MPI_HOME/bin/mpirun -np 12 ./xhpl
+$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 12 ./xhpl > HPL.out
 
 echo "Тест завершен!"
 echo "Результаты сохранены в HPL.out"
