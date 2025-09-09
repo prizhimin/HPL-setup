@@ -1,7 +1,8 @@
 #!/bin/sh
 # https://www.mgaillard.fr/2022/08/27/benchmark-with-hpl.html
 
-sudo apt install -y build-essential hwloc libhwloc-dev libevent-dev gfortran zlib1g zlib1g-dev libz-dev wget mc git btop
+sudo apt install -y build-essential hwloc libhwloc-dev libevent-dev gfortran zlib1g zlib1g-dev libz-dev 
+sudo apt install -y wget mc git btop
 
 cd ~
 git clone https://github.com/OpenMathLib/OpenBLAS.git
