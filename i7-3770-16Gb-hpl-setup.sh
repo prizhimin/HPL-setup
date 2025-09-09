@@ -7,7 +7,6 @@ cd ~
 git clone https://github.com/OpenMathLib/OpenBLAS.git
 cd OpenBLAS
 
-# ОПТИМИЗАЦИЯ: Добавлены USE_OPENMP и NUM_THREADS
 make TARGET=SANDYBRIDGE NO_AVX2=1 USE_OPENMP=1 NUM_THREADS=8
 make PREFIX=$HOME/opt/OpenBLAS install
 
@@ -15,7 +14,6 @@ cd ~
 wget https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.8.tar.gz
 tar xf openmpi-5.0.8.tar.gz
 cd openmpi-5.0.8
-# ОПТИМИЗАЦИЯ: Улучшенные флаги
 CFLAGS="-O3 -march=corei7-avx -mtune=sandybridge -funroll-loops -floop-optimize" ./configure --prefix=$HOME/opt/OpenMPI
 make -j $(nproc)
 make install
@@ -34,7 +32,7 @@ sudo ln -s /usr/bin/gfortran /usr/bin/g77
 
 cd ~/hpl
 
-# Создание Makefile для Xeon E5-2689
+# Создание Makefile для i7-3770
 cat > Make.linux << 'EOF'
 SHELL        = /bin/sh
 CD           = cd
@@ -74,14 +72,14 @@ EOF
 # Компиляция HPL
 make arch=linux
 
-# Создание HPL.dat конфигурации для Xeon E5-2689 с 32GB памяти
+# Создание HPL.dat конфигурации для i7-3770 с 16GB памяти
 cat > ~/hpl/bin/linux/HPL.dat << 'EOF'
 HPLinpack benchmark input file
 Innovative Computing Laboratory, University of Tennessee
 HPL.out      output file name (if any)
 6            device out (6=stdout,7=stderr,file)
 1            # of problems sizes (N)
-21000        Ns
+33000        Ns
 1            # of NBs
 192          NBs
 0            PMAP process mapping (0=Row-,1=Column-major)
@@ -114,12 +112,12 @@ echo "Бинарный файл: ~/hpl/bin/linux/xhpl"
 echo "Конфигурационный файл: ~/hpl/bin/linux/HPL.dat"
 
 # Запуск теста производительности
-echo "Запуск HPL теста на Xeon E5-2689 с 32GB памяти..."
+echo "Запуск HPL теста на i7-3770 с 16GB памяти..."
 echo "Используется 8 процессов (4 ядер + HT)"
 cd ~/hpl/bin/linux
 
 # Запуск теста с 8 процессами
-$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 8 ./xhpl > HPL.out
+$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 8 --bind-to core ./xhpl > HPL.out
 
 echo "Тест завершен!"
 echo "Результаты сохранены в HPL.out"
