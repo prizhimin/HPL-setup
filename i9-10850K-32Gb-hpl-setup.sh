@@ -124,7 +124,7 @@ echo "Запуск HPL на i9-10850K с 32 ГБ ОЗУ..."
 echo "Используется 20 процессов (10 ядер + Hyper-Threading)"
 
 # Запуск с привязкой процессов для лучшей производительности
-$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 20 --bind-to core ./xhpl > HPL.out
+$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 20 ./xhpl > HPL.out
 
 echo "Тест завершен! Результаты в HPL.out"
 
