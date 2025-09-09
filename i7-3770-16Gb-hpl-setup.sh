@@ -119,7 +119,7 @@ echo "Используется 8 процессов (4 ядер + HT)"
 cd ~/hpl/bin/linux
 
 # Запуск теста с 8 процессами
-$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 8 --bind-to core ./xhpl > HPL.out
+$MPI_HOME/bin/mpirun --use-hwthread-cpus -np 8 ./xhpl > HPL.out
 
 echo "Тест завершен!"
 echo "Результаты сохранены в HPL.out"
