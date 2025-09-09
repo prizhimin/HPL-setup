@@ -20,9 +20,10 @@ CFLAGS="-Ofast -march=znver4 -mtune=znver4 -mavx512f -mavx512dq -mavx512vl -mavx
 make -j $(nproc)
 make install
 
+# Экспорт переменных для MPI
 export MPI_HOME=$HOME/opt/OpenMPI
 export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
 
 cd ~
 wget https://netlib.sandia.gov/benchmark/hpl/hpl-2.3.tar.gz
@@ -117,11 +118,6 @@ echo "Конфигурационный файл: ~/hpl/bin/linux/HPL.dat"
 echo "Запуск HPL теста на Ryzen 5 7500F с 32GB памяти..."
 echo "Используется 12 процессов (6 ядер + HT)"
 cd ~/hpl/bin/linux
-
-# Экспорт переменных для MPI
-export MPI_HOME=$HOME/opt/OpenMPI
-export PATH=$PATH:$MPI_HOME/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MPI_HOME/lib:$HOME/opt/OpenBLAS/lib
 
 # Запуск теста с 12 процессами
 $MPI_HOME/bin/mpirun --use-hwthread-cpus -np 12 ./xhpl > HPL.out
