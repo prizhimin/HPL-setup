@@ -8,7 +8,7 @@ cd ~
 git clone https://github.com/OpenMathLib/OpenBLAS.git
 cd OpenBLAS
 
-make TARGET=ZEN4 USE_OPENMP=1 NUM_THREADS=12
+make TARGET=ZEN USE_OPENMP=1 NUM_THREADS=12
 make PREFIX=$HOME/opt/OpenBLAS install
 
 cd ~
