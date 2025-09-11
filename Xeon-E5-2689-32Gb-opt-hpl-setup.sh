@@ -1,7 +1,8 @@
 #!/bin/sh
 # https://www.mgaillard.fr/2022/08/27/benchmark-with-hpl.html
 
-sudo apt install -y build-essential hwloc libhwloc-dev libevent-dev gfortran wget mc git btop zlib1g zlib1g-dev libz-dev
+sudo apt install -y build-essential hwloc libhwloc-dev libevent-dev gfortran wget zlib1g zlib1g-dev libz-dev
+sudo apt install -y mc git btop
 
 cd ~
 git clone https://github.com/OpenMathLib/OpenBLAS.git
@@ -16,7 +17,7 @@ wget https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.8.tar.gz
 tar xf openmpi-5.0.8.tar.gz
 cd openmpi-5.0.8
 # ОПТИМИЗАЦИЯ: Улучшенные флаги
-CFLAGS="-O3 -march=corei7-avx -mtune=sandybridge -funroll-loops -floop-optimize" ./configure --prefix=$HOME/opt/OpenMPI
+CFLAGS="-O3 -march=sandybridge -mtune=sandybridge -funroll-loops -floop-optimize" ./configure --prefix=$HOME/opt/OpenMPI
 make -j $(nproc)
 make install
 
